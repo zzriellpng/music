@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>projek gabut</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", Arial, sans-serif;
+      background-color: #0e0b16;
+      color: #fff;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 30px;
+      background: linear-gradient(to bottom, rgba(42,8,69,0.8), #0e0b16),
+                  url('https://images.unsplash.com/photo-1511379938547-c1f69419868d?auto=format&fit=crop&w=1400&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .cover {
+      width: 140px;
+      height: 140px;
+      border-radius: 10px;
+      margin-right: 20px;
+      object-fit: cover;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+    }
+
+    .playlist-info h1 {
+      font-size: 26px;
+      margin: 0;
+      font-weight: 700;
+    }
+    .playlist-info p {
+      font-size: 15px;
+      color: #ddd;
+      margin: 8px 0 0;
+    }
+
+    /* SONG LIST */
+    .song-list {
+      list-style: none;
+      padding: 0;
+      margin: 20px;
+    }
+
+    .song {
+      display: grid;
+      grid-template-columns: 50px 1fr 60px;
+      align-items: center;
+      gap: 15px;
+      padding: 12px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.25s;
+    }
+
+    .song:hover {
+      background: rgba(138, 43, 226, 0.25);
+      transform: translateX(5px);
+    }
+
+    .song img {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+
+    .song-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .song-title {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .song-artist {
+      font-size: 13px;
+      color: #aaa;
+    }
+
+    .song-duration {
+      font-size: 13px;
+      color: #bbb;
+      text-align: right;
+    }
+
+    /* PLAYER */
+    .player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #1a1423;
+      display: flex;
+      align-items: center;
+      padding: 14px 20px;
+      border-top: 1px solid #333;
+      box-shadow: 0 -2px 12px rgba(0,0,0,0.7);
+    }
+
+    .player img {
+      width: 55px;
+      height: 55px;
+      border-radius: 6px;
+      margin-right: 15px;
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-right: 15px;
+    }
+
+    .controls button {
+      background: #2a0845;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .controls button:hover {
+      background: #8a2be2;
+      transform: scale(1.1);
+    }
+
+    .controls svg {
+      width: 16px;
+      height: 16px;
+      fill: white;
+    }
+
+    .player .info {
+      flex: 1;
+    }
+
+    .player span {
+      font-size: 14px;
+    }
+
+    /* Progress bar */
+    .progress-container {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      margin-top: 6px;
+      gap: 8px;
+    }
+
+    .progress {
+      flex: 1;
+      appearance: none;
+      height: 5px;
+      border-radius: 3px;
+      background: #444;
+      cursor: pointer;
+    }
+
+    .progress::-webkit-slider-thumb {
+      appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #8a2be2;
+      box-shadow: 0 0 8px #8a2be2;
+      cursor: pointer;
+    }
+
+    .time {
+      font-size: 12px;
+      color: #bbb;
+      min-width: 38px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header Playlist -->
+  <div class="header">
+    <img src="fotwo/pp.jpg" alt="cover" class="cover">
+    <div class="playlist-info">
+      <h1>paket combo free refil minum</h1>
+      <p>z riel • 10 lagu</p>
+    </div>
+  </div>
+
+  <!-- Daftar Lagu -->
+  <ul class="song-list">
+<li class="song" 
+    data-src="songs/Monolog.mp3" 
+    data-cover="fotwo/pmk.jpg">
+  <img src="fotwo/pmk.jpg">
+  <div class="song-info">
+    <div class="song-title">Monolog</div>
+    <div class="song-artist">Pamungkas</div>
+  </div>
+  <div class="song-duration">3:21</div>
+</li>
+
+    <li class="song" 
+    data-src="songs/ffy.mp3" 
+    data-cover="fotwo/19.jpg">
+  <img src="fotwo/19.jpg">
+  <div class="song-info">
+    <div class="song-title">Fallingforyou</div>
+    <div class="song-artist">The 1975</div>
+  </div>
+  <div class="song-duration">4:01</div>
+</li>
+
+    <li class="song" 
+    data-src="songs/imagi.mp3" 
+    data-cover="fotwo/sm.jpg">
+  <img src="fotwo/sm.jpg">
+  <div class="song-info">
+    <div class="song-title">Imagination</div>
+    <div class="song-artist">Shawn Mendes</div>
+  </div>
+  <div class="song-duration">3:37</div>
+</li>
+
+<li class="song" 
+    data-src="songs/bestp.mp3" 
+    data-cover="fotwo/bp.jpg">
+  <img src="fotwo/bp.jpg">
+  <div class="song-info">
+    <div class="song-title">Best Part (feat. H.E.R.)</div>
+    <div class="song-artist">Daniel Caesar</div>
+  </div>
+  <div class="song-duration">3:29</div>
+</li>
+
+<li class="song" 
+    data-src="songs/ite.mp3" 
+    data-cover="fotwo/ite.jpg">
+  <img src="fotwo/ite.jpg">
+  <div class="song-info">
+    <div class="song-title">In The End</div>
+    <div class="song-artist">Linkin Park</div>
+  </div>
+  <div class="song-duration">3:35</div>
+</li>
+
+<li class="song" 
+    data-src="songs/dip.mp3" 
+    data-cover="fotwo/dip.png">
+  <img src="fotwo/dip.png">
+  <div class="song-info">
+    <div class="song-title">Now I'm a Diplomat</div>
+    <div class="song-artist">Reality Club</div>
+  </div>
+  <div class="song-duration">3:20</div>
+</li>
+
+<li class="song" 
+    data-src="songs/sem.mp3" 
+    data-cover="fotwo/sem.jpg">
+  <img src="fotwo/sem.jpg">
+  <div class="song-info">
+    <div class="song-title">Sempurna</div>
+    <div class="song-artist">Andra & The Backbone</div>
+  </div>
+  <div class="song-duration">4:26</div>
+</li>
+
+<li class="song" 
+    data-src="songs/ss.mp3" 
+    data-cover="fotwo/ss.jpg">
+  <img src="fotwo/ss.jpg">
+  <div class="song-info">
+    <div class="song-title">Sunda Strait</div>
+    <div class="song-artist">Aldi Haqq</div>
+  </div>
+  <div class="song-duration">4:57</div>
+</li>
+
+<li class="song" 
+    data-src="songs/resah.mp3" 
+    data-cover="/fotwo/resah.jpg">
+  <img src="fotwo/resah.jpg">
+  <div class="song-info">
+    <div class="song-title">Resah</div>
+    <div class="song-artist">Payung Teduh</div>
+  </div>
+  <div class="song-duration">4:00</div>
+</li>
+
+<li class="song" 
+    data-src="songs/kno.mp3" 
+    data-cover="/fotwo/kno.jpg">
+  <img src="fotwo/kno.jpg">
+  <div class="song-info">
+    <div class="song-title">Kepada Noor</div>
+    <div class="song-artist">Panji Sakti</div>
+  </div>
+  <div class="song-duration">3:29</div>
+</li>
+  </ul>
+
+  <!-- Player -->
+  <div class="player">
+    <img id="playerCover" src="fotwo/play.jpg" alt="">
+    <div class="controls">
+      <button id="prevBtn" title="Prev">
+        <svg viewBox="0 0 24 24"><path d="M6 12l12-8v16zM4 6h2v12H4z"/></svg>
+      </button>
+      <button id="playPause" title="Play/Pause">
+        <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button id="stopBtn" title="Stop">
+        <svg viewBox="0 0 24 24"><path d="M6 6h12v12H6z"/></svg>
+      </button>
+      <button id="nextBtn" title="Next">
+        <svg viewBox="0 0 24 24"><path d="M18 12L6 4v16zM20 6h-2v12h2z"/></svg>
+      </button>
+    </div>
+    <div class="info">
+      <span id="nowPlaying">Tidak ada lagu diputar</span>
+      <div class="progress-container">
+        <div class="time" id="currentTime">0:00</div>
+        <input type="range" id="progress" class="progress" value="0" max="100">
+        <div class="time" id="duration">0:00</div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+
+  <script>
+    const audio = document.getElementById("audio");
+    const nowPlaying = document.getElementById("nowPlaying");
+    const playPauseBtn = document.getElementById("playPause");
+    const stopBtn = document.getElementById("stopBtn");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const playerCover = document.getElementById("playerCover");
+    const progress = document.getElementById("progress");
+    const currentTimeEl = document.getElementById("currentTime");
+    const durationEl = document.getElementById("duration");
+    const playIcon = document.getElementById("playIcon");
+
+    let currentSong = null;
+    let songIndex = -1;
+    const songs = document.querySelectorAll(".song");
+
+    function formatTime(sec) {
+      const minutes = Math.floor(sec / 60) || 0;
+      const seconds = Math.floor(sec % 60) || 0;
+      return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }
+
+    function loadSong(index) {
+      const song = songs[index];
+      if (!song) return;
+      const src = song.getAttribute("data-src");
+      const cover = song.getAttribute("data-cover");
+      const title = song.querySelector(".song-title").textContent;
+      const artist = song.querySelector(".song-artist").textContent;
+
+      audio.src = src;
+      audio.play();
+      currentSong = src;
+      songIndex = index;
+      playerCover.src = cover;
+      nowPlaying.textContent = `${title} - ${artist}`;
+      playIcon.innerHTML = `<path d="M6 19h4V5H6zm8-14v14h4V5z"/>`; // pause icon
+    }
+
+    songs.forEach((song, index) => {
+      song.addEventListener("click", () => loadSong(index));
+    });
+
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.src) {
+        if (audio.paused) {
+          audio.play();
+          playIcon.innerHTML = `<path d="M6 19h4V5H6zm8-14v14h4V5z"/>`; // pause
+        } else {
+          audio.pause();
+          playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // play
+        }
+      }
+    });
+
+    stopBtn.addEventListener("click", () => {
+      audio.pause();
+      audio.currentTime = 0;
+      playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`; // play
+    });
+
+    prevBtn.addEventListener("click", () => {
+      if (songIndex > 0) loadSong(songIndex - 1);
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (songIndex < songs.length - 1) loadSong(songIndex + 1);
+    });
+
+    // Update progress bar
+    audio.addEventListener("timeupdate", () => {
+      progress.value = (audio.currentTime / audio.duration) * 100 || 0;
+      currentTimeEl.textContent = formatTime(audio.currentTime);
+      durationEl.textContent = formatTime(audio.duration);
+    });
+
+    // Geser progress
+    progress.addEventListener("input", () => {
+      audio.currentTime = (progress.value / 100) * audio.duration;
+    });
+
+    // Reset icon saat lagu selesai
+    audio.addEventListener("ended", () => {
+      playIcon.innerHTML = `<path d="M8 5v14l11-7z"/>`;
+    });
+  </script>
+
+</body>
+</html>
